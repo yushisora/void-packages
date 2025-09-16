@@ -1,0 +1,18 @@
+# Template file for 'ytui'
+pkgname=ytui
+version=1.0.1
+revision=1
+build_style=go
+go_import_path=github.com/Banh-Canh/ytui
+depends="mpv yt-dlp"
+short_desc="TUI tool to query and play youtube videos"
+maintainer="Yushi <github@yushi.one>"
+license="MIT"
+homepage="https://github.com/Banh-Canh/ytui"
+changelog="https://github.com/Banh-Canh/ytui/releases"
+distfiles="https://github.com/Banh-Canh/ytui/archive/refs/tags/v${version}.tar.gz"
+checksum=156844d49e12286e0b62b36db42343e890dd38be15789c5cb4689b4f7abd5afa
+
+post_install() {
+	vlicense LICENSE
+}
