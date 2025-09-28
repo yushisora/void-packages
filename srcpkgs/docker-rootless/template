@@ -1,0 +1,15 @@
+# Template file for 'docker-rootless'
+pkgname=docker-rootless
+version=28.4.0
+revision=1
+depends="docker>=${version} rootlesskit slirp4netns"
+short_desc="Docker rootless mode"
+maintainer="Yushi <git@yushi.one>"
+license="Apache-2.0"
+homepage="https://www.docker.com"
+distfiles="https://github.com/moby/moby/archive/v${version}.tar.gz"
+checksum=4aa0776ef3c040204cada69f3d4d7b89a3cef85e07cbe098c05cdcb000ea7e30
+
+do_install() {
+	vbin contrib/dockerd-rootless.sh dockerd-rootless
+}
