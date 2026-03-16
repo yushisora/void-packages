@@ -1,0 +1,22 @@
+# Template file for 'mew'
+pkgname=mew
+version=1.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="pkg-config"
+makedepends="fcft-devel wayland-devel wayland-protocols libxkbcommon-devel"
+depends=""
+short_desc="Dynamic menu for Wayland"
+maintainer="Yushi <git@yushi.one>"
+license="MIT"
+homepage="https://codeberg.org/sewn/mew"
+distfiles="https://codeberg.org/sewn/mew/archive/${version}.tar.gz"
+checksum=01452fb92c6c5f792327ed8328bb2cbba55fa491260ccdf1b49db7960583c70b
+
+pre_build() {
+	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h
+}
+
+post_install() {
+  vlicense LICENSE
+}

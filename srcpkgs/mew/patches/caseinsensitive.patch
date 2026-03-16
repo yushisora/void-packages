@@ -1,0 +1,58 @@
+diff --git a/mew.c b/mew.c
+index 44aaf89..d2aadb1 100644
+--- a/mew.c
++++ b/mew.c
+@@ -80,8 +80,26 @@ static struct wl_output *output = NULL;
+ 
+ #include "config.h"
+ 
+-static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
+-static char *(*fstrstr)(const char *, const char *) = strstr;
++static char *
++cistrstr(const char *h, const char *n)
++{
++	size_t i;
++
++	if (!n[0])
++		return (char *)h;
++
++	for (; *h; ++h) {
++		for (i = 0; n[i] && tolower((unsigned char)n[i]) ==
++		            tolower((unsigned char)h[i]); ++i)
++			;
++		if (n[i] == '\0')
++			return (char *)h;
++	}
++	return NULL;
++}
++
++static int (*fstrncmp)(const char *, const char *, size_t) = strncasecmp;
++static char *(*fstrstr)(const char *, const char *) = cistrstr;
+ static int (*submit)(const char*) = puts;
+ 
+ static void
+@@ -243,24 +261,6 @@ cleanup(void)
+ 	wl_display_disconnect(display);
+ }
+ 
+-static char *
+-cistrstr(const char *h, const char *n)
+-{
+-	size_t i;
+-
+-	if (!n[0])
+-		return (char *)h;
+-
+-	for (; *h; ++h) {
+-		for (i = 0; n[i] && tolower((unsigned char)n[i]) ==
+-		            tolower((unsigned char)h[i]); ++i)
+-			;
+-		if (n[i] == '\0')
+-			return (char *)h;
+-	}
+-	return NULL;
+-}
+-
+ static int
+ drawitem(struct item *item, int x, int y, int w)
+ {
